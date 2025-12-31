@@ -1,5 +1,5 @@
 # Analyzing ECG Data for Arrythmia Detection 
-### Comparative Analysis: Domain-Specific Feature Engineering + ML vs. Deep Learning
+### Comparative Analysis: Feature Engineering + ML vs. Deep Learning
 
 ![Status](https://img.shields.io/badge/Status-Complete-success)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
@@ -7,13 +7,13 @@
 ![Domain](https://img.shields.io/badge/Domain-Biomedical_Engineering-red)
 
 ## Summary
-This project challenges the industry trend of relying solely on deep learning for biological signal processing. It benchmarks a 1D-Convolutional Neural Network (CNN) against a lightweight Logistic Regression classifier that utilizes domain-specific feature engineering (Non-Linear Dynamics and Chaos Theory). 
+This project challenges the industry trend of relying solely on deep learning for biological signal processing. It benchmarks a 1D-Convolutional Neural Network (CNN) against a lightweight Logistic Regression classifier that utilizes domain-specific feature engineering, namely in nonlinear dynamics. 
 
 **Hypothesis:** A model grounded in physiological principles can achieve comparable diagnostic performance to a "black box" neural network while offering superior interpretability and magntitudes of reduction in training time. 
 
 ## Background and Motivation
 
-### 1. The Biological Context: How the Heart "Speaks"
+### Biological Context
 The heart is not just a muscle; it is an electromechanical pump controlled by a complex biological circuit.
 * **The Signal:** Every heartbeat is triggered by an electrical impulse from the Sinoatrial (SA) Node. This impulse travels down conductive pathways (His-Purkinje system), causing the muscle fibers to contract.
 * **The ECG:** An Electrocardiogram (ECG) measures the voltage changes on the skin caused by this electrical wave. A normal heartbeat produces a specific shape called the **P-QRS-T complex**:
@@ -21,14 +21,14 @@ The heart is not just a muscle; it is an electromechanical pump controlled by a 
     * **QRS Complex:** Ventricular contraction (the main "spike").
     * **T-wave:** Resetting (repolarization).
 
-### 2. The Clinical Problem: Defining Arrhythmia
+### Defining Arrythmia
 An arrhythmia is any deviation from the normal rate or rhythm of the heart. Clinicians generally look for two distinct types of failures:
 1.  **Failures of Rhythm (Timing):** The electrical "pacemaker" is misfiring. The heart beats too fast, too slow, or irregularly (e.g., Atrial Fibrillation).
     * *Doctor's Check:* Is the spacing between beats (R-R Interval) constant?
 2.  **Failures of Conduction (Morphology):** The electrical signal is blocked or delayed in the tissue. The heart beats on time, but the wave has to take a detour, changing its shape (e.g., Left Bundle Branch Block).
     * *Doctor's Check:* Is the QRS complex narrow (sharp) or wide (blunted)?
 
-### 3. The Mathematical Translation: From Biology to Physics
+### Feature Engineering
 This project hypothesizes that we do not need a neural network to learn these patterns from scratch. We can explicitly engineer features that map directly to the clinician's checklist:
 
 | Clinical Feature | Mathematical Domain | The Feature We Engineered |
@@ -38,8 +38,6 @@ This project hypothesizes that we do not need a neural network to learn these pa
 | **Signal Direction** | **Distribution Asymmetry** | **Skewness:** A Premature Ventricular Contraction (PVC) originates from the bottom of the heart, reversing the signal polarity. This flips the statistical skew of the wave. |
 
 **Why this matters:** By translating "Medical Symptoms" into "Physics Metrics," we create a model that is inherently interpretable. If the model predicts *Arrhythmia*, we can explain exactly why: *"The signal entropy was high (Chaos) and the Kurtosis was low (Blockage)."*
-
-
 
 
 ## Data Source and Processing
@@ -65,7 +63,7 @@ The project is contained within a single reproducible notebook (`arrythmiaml.ipy
 **Note:** The comparison between models was repeated for two different tasks - binary classification (normal vs _any_ arrythmia) and multi-category classification (normal vs LBBB vs RBBB etc.)
 
 1.  **Config Class:** Centralized configuration for sample rates, window sizes, and paths.
-2.  **download_full_dataset():** Automates data ingestion directly from PhysioNet.
+2.  **download_full_dataset():** Data ingestion directly from PhysioNet.
 3.  **HeartEngineer Class:**
     * `pan_tompkins_detector`: Robust R-peak detection.
     * `extract_features`: Generates 11 domain features including SD1/SD2 (Chaos), Kurtosis/Skewness (Morphology), and Sample Entropy.
@@ -89,7 +87,6 @@ The study resulted in a comparison between the two approaches across 5 classes (
 | **Overall Accuracy** | ~83% | ~86% | Deep Learning (Marginal) |
 
 **Key Findings:**
-* **Morphology Matters:** Initially, the Engineering model failed on Bundle Branch Blocks (LBBB). Adding statistical moments (Kurtosis) fixed this, as LBBB beats are statistically "flatter" than normal beats.
 * **Efficiency:** The Engineering model is lightweight enough to run on ultra-low-power edge devices (e.g., smartwatches) without GPU acceleration.
 
 ## Future Work
