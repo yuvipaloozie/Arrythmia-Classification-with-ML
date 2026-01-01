@@ -11,7 +11,10 @@ This project challenges the industry trend of relying solely on deep learning fo
 
 **Hypothesis:** A model grounded in physiological principles can achieve comparable diagnostic performance to a "black box" neural network while offering superior interpretability and magntitudes of reduction in training time. 
 
+
 ## Background and Motivation
+
+
 
 ### Biological Context
 The heart is not just a muscle; it is an electromechanical pump controlled by a complex biological circuit.
@@ -36,6 +39,9 @@ This project hypothesizes that we do not need a neural network to learn these pa
 | **Signal Direction** | **Distribution Asymmetry** | **Skewness:** A Premature Ventricular Contraction (PVC) originates from the bottom of the heart, reversing the signal polarity - this flips the statistical skew of the wave. |
 
 The utilization of feature engineering not only enables construction of a lightweight ML model, but also allows for extremely interpretable insights into predicted cases of arrythmia. 
+
+<img width="1490" height="1151" alt="image" src="https://github.com/user-attachments/assets/a49d9ed8-5987-4c2a-b663-8a04ae3ebe32" />
+
 
 
 ## Data Source and Processing
@@ -84,6 +90,17 @@ The study resulted in a comparison between the two approaches across 5 classes (
 | **RBBB Recall** | **0.90** | 0.82 | **Engineering** |
 | **PVC Recall** | 0.49 | **0.54** | Deep Learning |
 | **Overall Accuracy** | ~83% | ~86% | Deep Learning (Marginal) |
+
+
+
+<img width="1989" height="1189" alt="image" src="https://github.com/user-attachments/assets/487cbf4c-3d7d-47f3-a0aa-e212b424b9b0" />
+
+
+<img width="1570" height="702" alt="image" src="https://github.com/user-attachments/assets/b9d66f3a-af0b-4d47-9685-b57df35cbd10" />
+
+
+
+
 
 **Key Findings:**
 * **Efficiency:** The Engineering model is lightweight enough to run on ultra-low-power edge devices (e.g., smartwatches) without GPU acceleration.
