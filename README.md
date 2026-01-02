@@ -81,9 +81,22 @@ The project is contained within a single reproducible notebook (`arrythmiaml.ipy
 The comparative performance was measured in two different tests: a simple binary test and a more challenging multiclass test (Normal, LBBB, RBBB, PVC, APC).
 
 ### Model Performance
+
+| Metric / Disease Class | Logistic Reg | 1-D CNN |
+| :--- | :--- | :--- |
+| **Training Time** | **0.03s** | 37.38s |
+| **Binary Accuracy** | **83.0%** | 82.8% |
+| **Binary Recall** | 76.1% | **84.2%** |
+| **Binary Precision** | **74.6%** | 70.9% |
+| **Binary F1-Score** | 75.3% | **77.0%** |
+| **Recall: Normal Rhythm** | **53%** | 42% |
+| **Recall: LBBB (Left Block)** | 75% | **82%** |
+| **Recall: RBBB (Right Block)**| **90%** | 82% |
+| **Recall: PVC (Ventricular)** | 49% | **54%** |
+| **Recall: APC (Atrial)** | 46% | **56%** |
+
 **Binary Classification**
 <img width="1141" height="336" alt="image" src="https://github.com/user-attachments/assets/cff1486f-0497-49bf-9743-4994ee46bb84" />
-
 
 **Multi-class Classification**
 <img width="1570" height="702" alt="image" src="https://github.com/user-attachments/assets/3a39f6cc-7e93-4a3f-8874-61b01a4449a0" />
@@ -92,10 +105,6 @@ The comparative performance was measured in two different tests: a simple binary
 ### Interpretability
 
 A key motivation for choosing machine learning models over state-of-the-art deep learning models, even with unstructured data, as the vast gap in model interpretability. While advances in explainable AI tools have enabled better clarity into the operation of deep learning models, a simple machine learning model with powerful feature engineering will always be fully explicable. In the context of this project, interpretability is extremely important in determining what exact qualities of the input data (i.e. specific characteristics of ECG signals) are most important for arrythmia classification. 
-
-<img width="1037" height="557" alt="image" src="https://github.com/user-attachments/assets/76397ed6-88bd-4545-91b9-0b4634a3aab6" />
-<img width="1243" height="611" alt="image" src="https://github.com/user-attachments/assets/b71d76b1-e652-4146-8275-f7e275139648" />
-<img width="1162" height="658" alt="image" src="https://github.com/user-attachments/assets/f23746a2-37fc-41b1-b227-94859d29049d" />
 
 
 
