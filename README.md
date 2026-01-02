@@ -14,8 +14,6 @@ This project challenges the industry trend of relying solely on deep learning fo
 
 ## Background and Motivation
 
-
-
 ### Biological Context
 The heart is not just a muscle; it is an electromechanical pump controlled by a complex biological circuit.
 * **The Signal:** Every heartbeat is triggered by an electrical impulse from the Sinoatrial (SA) Node. This impulse travels down conductive pathways (His-Purkinje system), causing the muscle fibers to contract.
@@ -73,7 +71,7 @@ The project is contained within a single reproducible notebook (`arrythmiaml.ipy
     * `extract_features`: Generates 11 domain features including SD1/SD2, kurtosis/skewdness, and sample entropy.
 4.  **Model Definitions:**
     * **Engineering Pipeline:** StandardScaler -> Logistic Regression.
-    * **Deep Learning Pipeline:** 2-layer 1D-CNN with Batch Normalization and Dropout.
+    * **Deep Learning Pipeline:** 2-layer 1D-CNN with Batch Normalization and Dropout. Model was trained 20-30 epochs for efficiency. 
 5.  **Visualization Functions:**
     * `plot_chaos_gallery`: Visualizes Poincaré plots for different arrhythmia classes.
     * `visualize_interpretability`: Compares CNN saliency maps vs. engineering feature space.
@@ -84,16 +82,23 @@ The comparative performance was measured in two different tests: a simple binary
 The study resulted in a comparison between the two approaches across 5 classes (Normal, LBBB, RBBB, PVC, APC).
 
 ### Model Performance
+**Binary Classification**
+<img width="1141" height="336" alt="image" src="https://github.com/user-attachments/assets/cff1486f-0497-49bf-9743-4994ee46bb84" />
+* **F-1 Score:**
+* **Recall:**
+* **Computational Time:**
 
+
+**Multi-class Classification**
+<img width="1570" height="702" alt="image" src="https://github.com/user-attachments/assets/3a39f6cc-7e93-4a3f-8874-61b01a4449a0" />
+
+
+
+Based on the performance metrics, it appears the CNN model performs slightly better across the board in comparison to the lightweight ML model. However, for the drastic difference in computation demand, the logistic regression model offers similar performance which could be boosted with the use of additional hyperparameter tuning. 
 
 ### Interpretability
 
-
-
-<img width="1989" height="1189" alt="image" src="https://github.com/user-attachments/assets/487cbf4c-3d7d-47f3-a0aa-e212b424b9b0" />
-
-
-<img width="1570" height="702" alt="image" src="https://github.com/user-attachments/assets/b9d66f3a-af0b-4d47-9685-b57df35cbd10" />
+A key motivation for choosing machine learning models over state-of-the-art deep learning models, even with unstructured data, as the vast gap in model interpretability. While advances in explainable AI tools have enabled better clarity into the operation of deep learning models, a simple machine learning model with powerful feature engineering will always be fully explicable. In the context of this project, interpretability is extremely important in determining what exact qualities of the input data (i.e. specific characteristics of ECG signals) are most important for arrythmia classification. 
 
 
 
