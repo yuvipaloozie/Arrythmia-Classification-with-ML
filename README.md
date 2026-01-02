@@ -34,7 +34,7 @@ This project hypothesizes that we do not need a neural network to learn these pa
 
 | Clinical Feature | Domain | Feature Engineering |
 | :--- | :--- | :--- |
-| **Rhythm Stability** | **Non-Linear Dynamics** | **Poincaré Plots:** We map each beat interval ($t_n$) against the next ($t_{n+1}$). A stable heart creates a tight cluster; a "chaotic" heart creates a scattered cloud. We quantify this with **Entropy** and **SD1/SD2** geometry. |
+| **Rhythm Stability** | **Non-Linear Dynamics** | **Poincaré Plots:** We map each beat interval ($t_n$) against the next ($t_{n+1}$). A stable heart creates a tight cluster; a "chaotic" heart creates a scattered cloud. We quantify this with **entropy** and **SD1/SD2** geometry. |
 | **Signal Shape** | **Statistical Moments** | **Kurtosis:** A healthy beat is a sharp spike (i.e high kurtosis). A blocked beat (e.g. LBBB) is a wide, sluggish wave (i.e. low kurtosis). |
 | **Signal Direction** | **Distribution Asymmetry** | **Skewness:** A Premature Ventricular Contraction (PVC) originates from the bottom of the heart, reversing the signal polarity - this flips the statistical skew of the wave. |
 
@@ -70,23 +70,23 @@ The project is contained within a single reproducible notebook (`arrythmiaml.ipy
 2.  **download_full_dataset():** Data ingestion directly from PhysioNet.
 3.  **HeartEngineer Class:**
     * `pan_tompkins_detector`: Robust R-peak detection.
-    * `extract_features`: Generates 11 domain features including SD1/SD2, Kurtosis/Skewness, and Sample Entropy.
+    * `extract_features`: Generates 11 domain features including SD1/SD2, kurtosis/skewdness, and sample entropy.
 4.  **Model Definitions:**
     * **Engineering Pipeline:** StandardScaler -> Logistic Regression.
     * **Deep Learning Pipeline:** 2-layer 1D-CNN with Batch Normalization and Dropout.
 5.  **Visualization Functions:**
     * `plot_chaos_gallery`: Visualizes Poincaré plots for different arrhythmia classes.
-    * `visualize_interpretability`: Compares CNN Saliency Maps vs. Engineering Feature Space.
+    * `visualize_interpretability`: Compares CNN saliency maps vs. engineering feature space.
 <img width="1776" height="611" alt="image" src="https://github.com/user-attachments/assets/c4d7a84d-97ac-426e-9c53-8f5deafbef59" />
 
 ## Results and Evaluations
 The comparative performance was measured in two different tests: a simple binary test and a more challenging multiclass test. 
 The study resulted in a comparison between the two approaches across 5 classes (Normal, LBBB, RBBB, PVC, APC).
 
-# Model Performance
+### Model Performance
 
 
-# Interpretability
+### Interpretability
 
 
 
@@ -98,11 +98,9 @@ The study resulted in a comparison between the two approaches across 5 classes (
 
 
 
-
-**Key Findings:**
+### Key Findings
 * **Efficiency:** The Engineering model is lightweight enough to run on ultra-low-power edge devices (e.g., smartwatches) without GPU acceleration.
 
 ## Future Work
 * **Edge Deployment:** Port the HeartEngineer logic to C++ for embedded microcontroller testing.
-* **Cross-Dataset Validation:** Test robustness on the AHA or PTB Diagnostic ECG Database.
-* **Hybrid Architecture:** Implement a stack where the Engineering model handles initial screening (for speed) and the CNN handles ambiguous cases (for precision).
+* **Cross-Dataset Validation:** Test robustness on other ECG databases that are available. 
