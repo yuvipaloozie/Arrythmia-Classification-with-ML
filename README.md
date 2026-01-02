@@ -104,10 +104,19 @@ The comparative performance was measured in two different tests: a simple binary
 
 ### Interpretability
 
-A key motivation for choosing machine learning models over state-of-the-art deep learning models, even with unstructured data, as the vast gap in model interpretability. While advances in explainable AI tools have enabled better clarity into the operation of deep learning models, a simple machine learning model with powerful feature engineering will always be fully explicable. In the context of this project, interpretability is extremely important in determining what exact qualities of the input data (i.e. specific characteristics of ECG signals) are most important for arrythmia classification. 
+A key motivation for choosing machine learning models over state-of-the-art deep learning models, even with unstructured data, was the vast gap in model interpretability. While advances in explainable AI tools have enabled better clarity into the operation of deep learning models, a simple machine learning model with powerful feature engineering will always be more explicable. In the context of this project, interpretability is extremely important in determining what exact qualities of the input data (i.e. specific characteristics of ECG signals) are most important for arrythmia classification. 
+
+**Logistic Regression + Engineering**
+* Differences in diagnoses were driven by lower-dimensionality representation in Poincare plots, namely SD1-SD2 values
+* Clear separation when doing broad binary classification, but harder to distinguish between specific classes using SD1-SD2 values/other statistical moments in some cases (e.g. Normal vs LBBB)
+<img width="1467" height="706" alt="image" src="https://github.com/user-attachments/assets/febece05-a9d2-432e-b003-96bc106e441a" />
+<img width="1141" height="675" alt="image" src="https://github.com/user-attachments/assets/798a9b75-a653-49af-a3e5-25ebbdc956f6" />
 
 
-
+**1-D CNN**
+* Have to rely on gradient class activation to get a proxy for model's "attention"
+* CNN weighs more attention on points closer to QRS complex/R-R intervals
+<img width="1175" height="626" alt="image" src="https://github.com/user-attachments/assets/deed633a-65ad-4e08-9b8f-5485d4a3e820" />
 
 
 ### Key Findings
