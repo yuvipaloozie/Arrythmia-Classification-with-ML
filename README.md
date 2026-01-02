@@ -1,7 +1,5 @@
 # Analyzing ECG Data for Arrythmia Detection 
 ### Comparative Analysis: Feature Engineering + ML vs. Deep Learning
-<div align="center">
-
   ![Status](https://img.shields.io/badge/Status-Complete-success?style=for-the-badge)
   ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
@@ -14,9 +12,7 @@
   ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
 
   ![Domain](https://img.shields.io/badge/Domain-Biomedical_Engineering-red?style=for-the-badge)
-
-</div>
-
+  
 ## Summary
 This project challenges the industry trend of relying solely on deep learning for biological signal processing. It benchmarks a 1D-Convolutional Neural Network (CNN) against a lightweight Logistic Regression classifier that utilizes domain-specific feature engineering, namely in nonlinear dynamics. 
 
