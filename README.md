@@ -78,34 +78,34 @@ The project is contained within a single reproducible notebook (`arrythmiaml.ipy
 <img width="1776" height="611" alt="image" src="https://github.com/user-attachments/assets/c4d7a84d-97ac-426e-9c53-8f5deafbef59" />
 
 ## Results and Evaluations
-The comparative performance was measured in two different tests: a simple binary test and a more challenging multiclass test. 
-The study resulted in a comparison between the two approaches across 5 classes (Normal, LBBB, RBBB, PVC, APC).
+The comparative performance was measured in two different tests: a simple binary test and a more challenging multiclass test (Normal, LBBB, RBBB, PVC, APC).
 
 ### Model Performance
 **Binary Classification**
 <img width="1141" height="336" alt="image" src="https://github.com/user-attachments/assets/cff1486f-0497-49bf-9743-4994ee46bb84" />
-* **F-1 Score:**
-* **Recall:**
-* **Computational Time:**
 
 
 **Multi-class Classification**
 <img width="1570" height="702" alt="image" src="https://github.com/user-attachments/assets/3a39f6cc-7e93-4a3f-8874-61b01a4449a0" />
 
 
-
-Based on the performance metrics, it appears the CNN model performs slightly better across the board in comparison to the lightweight ML model. However, for the drastic difference in computation demand, the logistic regression model offers similar performance which could be boosted with the use of additional hyperparameter tuning. 
-
 ### Interpretability
 
 A key motivation for choosing machine learning models over state-of-the-art deep learning models, even with unstructured data, as the vast gap in model interpretability. While advances in explainable AI tools have enabled better clarity into the operation of deep learning models, a simple machine learning model with powerful feature engineering will always be fully explicable. In the context of this project, interpretability is extremely important in determining what exact qualities of the input data (i.e. specific characteristics of ECG signals) are most important for arrythmia classification. 
+
+<img width="1037" height="557" alt="image" src="https://github.com/user-attachments/assets/76397ed6-88bd-4545-91b9-0b4634a3aab6" />
+<img width="1243" height="611" alt="image" src="https://github.com/user-attachments/assets/b71d76b1-e652-4146-8275-f7e275139648" />
+<img width="1162" height="658" alt="image" src="https://github.com/user-attachments/assets/f23746a2-37fc-41b1-b227-94859d29049d" />
+
 
 
 
 
 ### Key Findings
-* **Efficiency:** The Engineering model is lightweight enough to run on ultra-low-power edge devices (e.g., smartwatches) without GPU acceleration.
+* Binary classification performance of LogReg model is comparable to that of CNN at a fraction of the computational demand
+* Multi-class classification demonstrates how LogReg excels at handling morphological differences in signal data but struggles with temporal aspects (which CNN excels on)
 
 ## Future Work
 * **Edge Deployment:** Port the HeartEngineer logic to C++ for embedded microcontroller testing.
-* **Cross-Dataset Validation:** Test robustness on other ECG databases that are available. 
+* **Cross-Dataset Validation:** Test robustness on other ECG databases that are available.
+* **Hybrid Classifier:** Utilize a dual-model approach with LogReg as a first pass, then a finely tuned CNN for edge cases.
