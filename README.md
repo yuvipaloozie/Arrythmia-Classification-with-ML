@@ -83,13 +83,10 @@ The project is contained within a single reproducible notebook (`arrythmiaml.ipy
 The comparative performance was measured in two different tests: a simple binary test and a more challenging multiclass test. 
 The study resulted in a comparison between the two approaches across 5 classes (Normal, LBBB, RBBB, PVC, APC).
 
-| Metric | Engineering Model (Logistic Reg) | Deep Learning (1D-CNN) | Winner |
-| :--- | :--- | :--- | :--- |
-| **Training Time** | **~0.02 Seconds** | ~30.0 Seconds | **Engineering (1500x Faster)** |
-| **Interpretability** | **Transparent (Physics-based)** | Opaque (Saliency Maps) | **Engineering** |
-| **RBBB Recall** | **0.90** | 0.82 | **Engineering** |
-| **PVC Recall** | 0.49 | **0.54** | Deep Learning |
-| **Overall Accuracy** | ~83% | ~86% | Deep Learning (Marginal) |
+# Model Performance
+
+
+# Interpretability
 
 
 
