@@ -1,6 +1,5 @@
 # Analyzing ECG Data for Arrythmia Detection 
 ### Comparative Analysis: Feature Engineering + ML vs. Deep Learning
-  ![Status](https://img.shields.io/badge/Status-Complete-success?style=for-the-badge)
   ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
   ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
   ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
