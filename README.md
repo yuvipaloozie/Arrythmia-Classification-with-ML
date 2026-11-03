@@ -1,21 +1,21 @@
 # Analyzing ECG Data for Arrythmia Detection 
 ### Comparative Analysis: Feature Engineering + ML vs. Deep Learning
   ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-  ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-  ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
-  ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
-  ![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
-  ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
-![Logistic regression](https://img.shields.io/badge/Logistic%20regression-203858?style=for-the-badge)
-![1D CNN](https://img.shields.io/badge/1D%20CNN-203858?style=for-the-badge)
-![ECG feature engineering](https://img.shields.io/badge/ECG%20feature%20engineering-203858?style=for-the-badge)
-  ![Domain](https://img.shields.io/badge/Domain-Medicine-red?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
+![Keras](https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
+![Logistic Regression](https://img.shields.io/badge/Logistic%20Regression-F7931E?style=for-the-badge)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
+![pandas](https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![SciPy](https://img.shields.io/badge/SciPy-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white)
+![wfdb](https://img.shields.io/badge/wfdb-2563A6?style=for-the-badge)
+
   
 ## Summary
 This project compares a 1D-Convolutional Neural Network (CNN) with logistic regression on engineered ECG features. It focuses on the tradeoffs between classification performance, training time and interpretation, using nonlinear-dynamics and signal-shape features. 
 
 **Hypothesis:** Physiologically motivated features can give a small classifier comparable ECG-window classification performance, shorter training time and features that are easier to inspect. 
-
 
 ## Background and Motivation
 
@@ -44,8 +44,6 @@ The feature-engineering branch encodes rhythm and signal-shape information expli
 These engineered features make it possible to inspect which rhythm and signal-shape measurements contribute to an arrhythmia classification. 
 
 <img width="1490" height="1151" alt="image" src="https://github.com/user-attachments/assets/a49d9ed8-5987-4c2a-b663-8a04ae3ebe32" />
-
-
 
 ## Data Source and Processing
 * **Source:** [MIT-BIH Arrhythmia Database](https://physionet.org/content/mitdb/1.0.0/) (PhysioNet).
@@ -106,7 +104,6 @@ The comparative performance was measured in two different tests: a simple binary
 **Multi-class Classification**
 <img width="1570" height="702" alt="image" src="https://github.com/user-attachments/assets/3a39f6cc-7e93-4a3f-8874-61b01a4449a0" />
 
-
 ### Interpretability
 
 Interpretability is part of the comparison. Logistic regression operates on named ECG features, so its decisions can be examined in a compact feature space. The CNN uses the waveform directly; gradient-based saliency provides a different view of which signal regions influence its predictions. The plots below compare those views for this dataset. 
@@ -117,12 +114,10 @@ Interpretability is part of the comparison. Logistic regression operates on name
 <img width="1467" height="706" alt="image" src="https://github.com/user-attachments/assets/febece05-a9d2-432e-b003-96bc106e441a" />
 <img width="1141" height="675" alt="image" src="https://github.com/user-attachments/assets/798a9b75-a653-49af-a3e5-25ebbdc956f6" />
 
-
 **1-D CNN**
 * Input-gradient saliency estimates which waveform regions affect the prediction
 * CNN weighs more attention on points closer to QRS complex/R-R intervals
 <img width="1175" height="626" alt="image" src="https://github.com/user-attachments/assets/deed633a-65ad-4e08-9b8f-5485d4a3e820" />
-
 
 ### Key Findings
 * In the recorded binary run, logistic regression reaches 83.0% accuracy and the CNN reaches 82.8%. Their reported training times are 0.03s and 37.38s; the CNN has higher binary recall and F1.
