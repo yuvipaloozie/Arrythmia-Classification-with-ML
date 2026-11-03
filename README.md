@@ -6,18 +6,21 @@
   ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
   ![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
   ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![Logistic regression](https://img.shields.io/badge/Logistic%20regression-203858?style=for-the-badge)
+![1D CNN](https://img.shields.io/badge/1D%20CNN-203858?style=for-the-badge)
+![ECG feature engineering](https://img.shields.io/badge/ECG%20feature%20engineering-203858?style=for-the-badge)
   ![Domain](https://img.shields.io/badge/Domain-Medicine-red?style=for-the-badge)
   
 ## Summary
-This project challenges the industry trend of relying solely on deep learning for biological signal processing. It benchmarks a 1D-Convolutional Neural Network (CNN) against a lightweight Logistic Regression classifier that utilizes domain-specific feature engineering, namely in nonlinear dynamics. 
+This project compares a 1D-Convolutional Neural Network (CNN) with logistic regression on engineered ECG features. It focuses on the tradeoffs between classification performance, training time and interpretation, using nonlinear-dynamics and signal-shape features. 
 
-**Hypothesis:** A model grounded in physiological principles can achieve comparable diagnostic performance to a "black box" neural network while offering superior interpretability and magntitudes of reduction in training time. 
+**Hypothesis:** Physiologically motivated features can give a small classifier comparable ECG-window classification performance, shorter training time and features that are easier to inspect. 
 
 
 ## Background and Motivation
 
 ### Biological Context
-The heart is not just a muscle; it is an electromechanical pump controlled by a complex biological circuit.
+The heart is an electromechanical pump whose contractions depend on electrical conduction.
 * **The Signal:** Every heartbeat is triggered by an electrical impulse from the Sinoatrial (SA) Node. This impulse travels down conductive pathways (His-Purkinje system), causing the muscle fibers to contract.
 * **The ECG:** An Electrocardiogram (ECG) measures the voltage changes on the skin caused by this electrical wave. A normal heartbeat produces a specific shape called the **P-QRS-T complex**:
     * **P-wave:** Atrial contraction.
@@ -30,15 +33,15 @@ An arrhythmia is any deviation from the normal rate or rhythm of the heart. Clin
 2.  **Failures of Conduction:** The specific path for the electrical signal is altered due to blockage. This can manifest as a change in the shape of the QRS complex. 
 
 ### Feature Engineering
-This project hypothesizes that we do not need a neural network to learn these patterns from scratch. We can explicitly engineer features that map directly to the clinician's checklist:
+The feature-engineering branch encodes rhythm and signal-shape information explicitly. These features provide interpretable measurements to compare with the CNN:
 
 | Clinical Feature | Domain | Feature Engineering |
 | :--- | :--- | :--- |
-| **Rhythm Stability** | **Non-Linear Dynamics** | **Poincaré Plots:** We map each beat interval ($t_n$) against the next ($t_{n+1}$). A stable heart creates a tight cluster; a "chaotic" heart creates a scattered cloud. We quantify this with **entropy** and **SD1/SD2** geometry. |
-| **Signal Shape** | **Statistical Moments** | **Kurtosis:** A healthy beat is a sharp spike (i.e high kurtosis). A blocked beat (e.g. LBBB) is a wide, sluggish wave (i.e. low kurtosis). |
-| **Signal Direction** | **Distribution Asymmetry** | **Skewness:** A Premature Ventricular Contraction (PVC) originates from the bottom of the heart, reversing the signal polarity - this flips the statistical skew of the wave. |
+| **Rhythm Stability** | **Non-Linear Dynamics** | **Poincaré Plots:** We map each beat interval ($t_n$) against the next ($t_{n+1}$). The spread of successive R-R intervals is summarized by **SD1/SD2** geometry. The feature set also includes **entropy** of the filtered waveform's amplitude histogram. |
+| **Signal Shape** | **Statistical Moments** | **Kurtosis:** The notebook uses kurtosis to summarize the filtered waveform's amplitude distribution and compare signal-shape differences between classes. |
+| **Signal Direction** | **Distribution Asymmetry** | **Skewness:** The notebook uses skewness to summarize waveform asymmetry. Its relationship to the class label is assessed in the classification comparison. |
 
-The utilization of feature engineering not only enables construction of a lightweight ML model, but also allows for extremely interpretable insights into predicted cases of arrythmia. 
+These engineered features make it possible to inspect which rhythm and signal-shape measurements contribute to an arrhythmia classification. 
 
 <img width="1490" height="1151" alt="image" src="https://github.com/user-attachments/assets/a49d9ed8-5987-4c2a-b663-8a04ae3ebe32" />
 
@@ -70,7 +73,7 @@ The project is contained within a single reproducible notebook (`arrythmiaml.ipy
 2.  **download_full_dataset():** Data ingestion directly from PhysioNet.
 3.  **HeartEngineer Class:**
     * `pan_tompkins_detector`: Robust R-peak detection.
-    * `extract_features`: Generates 11 domain features including SD1/SD2, kurtosis/skewdness, and sample entropy.
+    * `extract_features`: Generates 11 domain features including SD1/SD2, kurtosis/skewdness, and histogram-based Shannon entropy.
 4.  **Model Definitions:**
     * **Engineering Pipeline:** StandardScaler -> Logistic Regression.
     * **Deep Learning Pipeline:** 2-layer 1D-CNN with Batch Normalization and Dropout. Model was trained 20-30 epochs for efficiency. 
@@ -80,7 +83,7 @@ The project is contained within a single reproducible notebook (`arrythmiaml.ipy
 <img width="1776" height="611" alt="image" src="https://github.com/user-attachments/assets/c4d7a84d-97ac-426e-9c53-8f5deafbef59" />
 
 ## Results and Evaluations
-The comparative performance was measured in two different tests: a simple binary test and a more challenging multiclass test (Normal, LBBB, RBBB, PVC, APC).
+The comparative performance was measured in two different tests: a simple binary test and a more challenging multiclass test (Normal, LBBB, RBBB, PVC, APC). These are window-level train/test results; the notebook does not implement a patient-held-out evaluation.
 
 ### Model Performance
 
@@ -106,7 +109,7 @@ The comparative performance was measured in two different tests: a simple binary
 
 ### Interpretability
 
-A key motivation for choosing machine learning models over state-of-the-art deep learning models, even with unstructured data, was the vast gap in model interpretability. While advances in explainable AI tools have enabled better clarity into the operation of deep learning models, a simple machine learning model with powerful feature engineering will always be more explicable. In the context of this project, interpretability is extremely important in determining what exact qualities of the input data (i.e. specific characteristics of ECG signals) are most important for arrythmia classification. 
+Interpretability is part of the comparison. Logistic regression operates on named ECG features, so its decisions can be examined in a compact feature space. The CNN uses the waveform directly; gradient-based saliency provides a different view of which signal regions influence its predictions. The plots below compare those views for this dataset. 
 
 **Logistic Regression + Engineering**
 * Differences in diagnoses were driven by lower-dimensionality representation in Poincare plots, namely SD1-SD2 values
@@ -116,16 +119,17 @@ A key motivation for choosing machine learning models over state-of-the-art deep
 
 
 **1-D CNN**
-* Have to rely on gradient class activation to get a proxy for model's "attention"
+* Input-gradient saliency estimates which waveform regions affect the prediction
 * CNN weighs more attention on points closer to QRS complex/R-R intervals
 <img width="1175" height="626" alt="image" src="https://github.com/user-attachments/assets/deed633a-65ad-4e08-9b8f-5485d4a3e820" />
 
 
 ### Key Findings
-* Binary classification performance of LogReg model is comparable to that of CNN at a fraction of the computational demand
-* Multi-class classification demonstrates how LogReg excels at handling morphological differences in signal data but struggles with temporal aspects (which CNN excels on)
+* In the recorded binary run, logistic regression reaches 83.0% accuracy and the CNN reaches 82.8%. Their reported training times are 0.03s and 37.38s; the CNN has higher binary recall and F1.
+* The multiclass results vary by class. Logistic regression has higher RBBB recall, while the CNN has higher recall for LBBB, PVC and APC. The comparison separates those class-level tradeoffs from overall accuracy.
 
 ## Future Work
 * **Edge Deployment:** Port the HeartEngineer logic to C++ for embedded microcontroller testing.
 * **Cross-Dataset Validation:** Test robustness on other ECG databases that are available.
 * **Hybrid Classifier:** Utilize a dual-model approach with LogReg as a first pass, then a finely tuned CNN for edge cases.
+
